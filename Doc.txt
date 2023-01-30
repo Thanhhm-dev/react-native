@@ -1,0 +1,11 @@
+react-native start
+
+1. Css Flex:
+    flexDirection: 'row',// chieu ngang
+    justifyContent: 'flex-end',// truc x: -1 0 1 thi se nam ngay vi tri so 1, cung huong voi flexDirection
+    alignItems: 'flex-end', // truc y: 
+                                    1 
+                                    0 
+                                    -1 
+                                    => thi se nam ngay vi tri -1, vuong goc voi flexDirection
+
