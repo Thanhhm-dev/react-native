@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fe9505'
   },
   buttonZero: {
-    width: 190
+    width: 180
   }
 });
