@@ -1,10 +1,12 @@
 import { Text, StyleSheet, View } from 'react-native'
 import React, { Component } from 'react'
+import AppStyles from './App.components.style'
+import Color from './src/contants/color'
 
 export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={AppStyles.container}>
         <View style={styles.screen}>
           <Text style={[styles.number]}>12121212121</Text>
         </View>
@@ -47,7 +49,7 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000000'
+    backgroundColor: Color.black
   },
   screen: {
     flex: 2,
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   number: {
-    color: '#e7e7e7',
+    color: Color.red,
     fontSize: 55
   },
   keyboard: {
@@ -72,17 +74,17 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     lineHeight: 80,
     marginTop: 10,
-    backgroundColor: '#333333',
-    color: '#e7e7e7',
+    backgroundColor: Color.gray20,
+    color: Color.gray,
     textAlign: 'center',
     fontSize: 35
   },
   firstRow: {
-    backgroundColor: '#a5a5a5',
-    color: '#0a0a0a'
+    backgroundColor: Color.gray1,
+    color: Color.black1
   },
   lastChild: {
-    backgroundColor: '#fe9505'
+    backgroundColor: Color.orange
   },
   buttonZero: {
     width: 180
