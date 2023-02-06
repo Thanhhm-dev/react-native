@@ -1,92 +1,74 @@
-import { Text, StyleSheet, View } from 'react-native'
-import React, { Component } from 'react'
+import { View } from 'react-native'
+import { useRef, useState } from 'react'
 import AppStyles from './App.components.style'
-import Color from './src/contants/color'
+import Display from './src/components/Display'
+import Button from './src/components/Button'
 
-export default class App extends Component {
-  render() {
-    return (
-      <View style={AppStyles.container}>
-        <View style={styles.screen}>
-          <Text style={[styles.number]}>12121212121</Text>
-        </View>
-        <View style={styles.keyboard}>
-          <View style={styles.row}>
-            <Text style={[styles.buttonCircle, styles.firstRow]}>C</Text>
-            <Text style={[styles.buttonCircle, styles.firstRow]}>+/-</Text>
-            <Text style={[styles.buttonCircle, styles.firstRow]}>%</Text>
-            <Text style={[styles.buttonCircle, styles.lastChild]}>÷</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.buttonCircle}>7</Text>
-            <Text style={styles.buttonCircle}>8</Text>
-            <Text style={styles.buttonCircle}>9</Text>
-            <Text style={[styles.buttonCircle, styles.lastChild]}>x</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.buttonCircle}>4</Text>
-            <Text style={styles.buttonCircle}>5</Text>
-            <Text style={styles.buttonCircle}>6</Text>
-            <Text style={[styles.buttonCircle, styles.lastChild]}>-</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={styles.buttonCircle}>1</Text>
-            <Text style={styles.buttonCircle}>2</Text>
-            <Text style={styles.buttonCircle}>3</Text>
-            <Text style={[styles.buttonCircle, styles.lastChild]}>+</Text>
-          </View>
-          <View style={styles.row}>
-            <Text style={[styles.buttonCircle, styles.buttonZero]}>0</Text>
-            <Text style={styles.buttonCircle}>,</Text>
-            <Text style={[styles.buttonCircle, styles.lastChild]}>=</Text>
-          </View>
-        </View>
-      </View>
-    )
+export default function App() {
+  const [value, setValue] = useState('');
+  const [total, setTotal] = useState('');
+  let flgClear = useRef(false)
+  let flgClearAll = useRef(false)
+  let clearTotal = useRef(false)
+  let calc: any = {
+    '+': '+',
+    '-': '-',
+    'x': '*',
+    '÷': '/'
   }
+
+  const clearCalculator = () => {
+    if (flgClearAll.current) {
+      setTotal('')
+      setValue('')
+      flgClearAll.current = false
+    }
+  }
+
+  const showText = (data: any) => {
+    if (['+', '-', 'x', '÷'].includes(data)) {
+      if (clearTotal.current) {
+        setTotal(value.toString().concat(calc[data]))
+        clearTotal.current = false;
+      } else {
+        setTotal(total.toString().concat(value.toString().concat(calc[data])))
+      }
+      return
+    }
+    if (!isNaN(data) || data == ',') {
+      if (flgClear.current) {
+        flgClear.current = false
+      } else {
+        data = value.concat(data)
+      }
+    }
+    if (data == '=') {
+      console.log(total)
+      data = eval(total + value)
+      clearTotal.current = true
+    }
+    if (data == 'C') {
+      flgClearAll.current = true
+    }
+    if (data == '%') {
+      data = parseFloat(value) / 100
+    }
+    if (data == '+/-') {
+      data = 0 - parseFloat(value)
+    }
+    
+    setValue(data)
+    clearCalculator()
+  }
+
+  const clearScreen = (flag: boolean) => {
+    flgClear.current = flag
+  }
+
+  return (
+    <View style={AppStyles.container}>
+      <Display textDisplay={value} />
+      <Button onDisplay={showText} setFlagClearScreen={clearScreen} />
+    </View>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Color.black
-  },
-  screen: {
-    flex: 2,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'flex-end'
-  },
-  number: {
-    color: Color.red,
-    fontSize: 55
-  },
-  keyboard: {
-    flex: 4.5,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  buttonCircle: {
-    width: 80,
-    height: 80,
-    borderRadius: 50,
-    lineHeight: 80,
-    marginTop: 10,
-    backgroundColor: Color.gray20,
-    color: Color.gray,
-    textAlign: 'center',
-    fontSize: 35
-  },
-  firstRow: {
-    backgroundColor: Color.gray1,
-    color: Color.black1
-  },
-  lastChild: {
-    backgroundColor: Color.orange
-  },
-  buttonZero: {
-    width: 180
-  }
-});
