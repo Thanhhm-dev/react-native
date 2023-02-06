@@ -1,2 +1,2 @@
 # react-native
-![image](https://user-images.githubusercontent.com/75287723/215379377-088d0267-f7c5-4249-8ae0-e86d9c85ce44.png)
+![image](https://user-images.githubusercontent.com/75287723/215382100-5b3e41c3-8d34-4092-979e-58cdcf1f3860.png)
