@@ -4,6 +4,13 @@ import AppStyles from './App.components.style'
 import Display from './src/components/Display'
 import Button from './src/components/Button'
 
+// redux
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducers from './src/redux/reducers/index'
+
+const store = createStore(reducers)
+
 export default function App() {
   const [value, setValue] = useState('');
   const [total, setTotal] = useState('');
@@ -56,7 +63,7 @@ export default function App() {
     if (data == '+/-') {
       data = 0 - parseFloat(value)
     }
-    
+
     setValue(data)
     clearCalculator()
   }
@@ -66,9 +73,11 @@ export default function App() {
   }
 
   return (
-    <View style={AppStyles.container}>
-      <Display textDisplay={value} />
-      <Button onDisplay={showText} setFlagClearScreen={clearScreen} />
-    </View>
+    <Provider store={store}>
+      <View style={AppStyles.container}>
+        <Display textDisplay={value} />
+        <Button onDisplay={showText} setFlagClearScreen={clearScreen} />
+      </View>
+    </Provider>
   )
 }
