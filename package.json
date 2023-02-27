@@ -10,9 +10,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "install": "^0.13.0",
     "react": "17.0.2",
     "react-devtools-core": "4.14",
-    "react-native": "0.68.2"
+    "react-native": "0.68.2",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
